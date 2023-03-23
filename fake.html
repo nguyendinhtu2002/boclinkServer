@@ -1,0 +1,53 @@
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta property="og:image" content="https://server1.ductinh.net/assets/storage/images/flink_68345.png" />
+
+    <meta name="twitter:image:src" content="https://server1.ductinh.net/assets/storage/images/flink_68345.png" />
+
+    <meta property="og:title" content="Test" />
+
+    <meta name="twitter:title" content="Test" />
+
+    <meta property="og:description" content="test" />
+
+    <meta name="twitter:description" content="test" />
+
+    <meta name="twitter:app:country" content="US" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <input type="hidden" id="url" value="fwkCJ" class="form-control">
+    <div id="thongbao"></div>
+    <script type="text/javascript">
+        function load_tinnhan() {
+            $.ajax({
+                url: "https://server1.ductinh.net/assets/ajaxs/fklink.php",
+                type: "GET",
+                dateType: "text",
+                data: {
+                    url: $("#url").val()
+                },
+                success: function (n) {
+                    location.href = n;
+                    //$("#thongbao").html(n);
+                }
+            });
+        }
+        setInterval(function () { $('#thongbao').load(load_tinnhan()); }, 1000);
+    </script>
+    <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js"
+        data-cf-settings="d8c170912f15bea4b38a4c5b-|49" defer></script>
+</body>
+
+</html>
