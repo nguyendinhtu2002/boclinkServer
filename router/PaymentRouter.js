@@ -6,6 +6,6 @@ const router = express.Router()
 
 router.post('/',paymentCreate)
 router.get('/:user',getNhatKy)
-router.get('/getAll/byAdmin',admin,getAll)
+router.get('/getAll/byAdmin',protect,admin,getAll)
 module.exports = router
  

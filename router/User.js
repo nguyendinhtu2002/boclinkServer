@@ -14,7 +14,7 @@ router.get("/:_id", protect, getUserById)
 router.put("/updateProfile/:id", protect, updateProfile)
 router.put("/:id/updatePassword", protect, updatePassword)
 router.post('/payment/:id', protect, orderUrl)
-router.get('/getAllUser/ByAdmin', admin,getAllUser)
+router.get('/getAllUser/ByAdmin', protect,admin,getAllUser)
 
 // router.post("/forgotPassword",forgotPassword)
 // router.put("/updateProfile", updateProfile)
