@@ -141,7 +141,7 @@ const craeteUrlFake = expressAsyncHandler(async (req, res, next) => {
         if (userCheck.hsD === 0 ) {
             return res.status(404).send({ error: "Err", message: "Hết hạn sử dụng" })
         }
-        
+    
         else {
             const urlNew = await FakeLink.create({
                 title,
@@ -330,4 +330,18 @@ const updateUrlFake = expressAsyncHandler(async (req, res, next) => {
         next(error);
     }
 })
-module.exports = { createUrl, getUrl, getbyId, getUrlById, updateStatus, deleteUrl, craeteUrlFake, getURlFake, getLinkFake, getURLGoc, deleteUrlFake, getUrlfakeById, updateUrlFake }
+
+const getAllUser = expressAsyncHandler(async (req, res, next) => {
+    try {
+        const userCheck = await Url.find({})
+        if (userCheck) {
+            return res.json(userCheck)
+        }
+        else {
+            return res.status(400).json({ message: "USer not admin" })
+        }
+    } catch (error) {
+        next(error)
+    }
+})
+module.exports = { createUrl, getUrl, getbyId, getUrlById, updateStatus, deleteUrl, craeteUrlFake, getURlFake, getLinkFake, getURLGoc, deleteUrlFake, getUrlfakeById, updateUrlFake,getAllUser }

@@ -31,19 +31,17 @@ const saveDataToMongoDB = async (data) => {
             // Kiểm tra xem document đã tồn tại trong database chưa
             const existingDocument = await NapTien.findOne({ id: item.id });
             if (existingDocument) {
-                console.log(`Document with name '${item.id}' already exists in database.`);
                 continue;
             }        //   // Nếu chưa tồn tại, tạo một instance của model và lưu vào MongoDB
             const newData = new NapTien(item);
             await newData.save();
-            console.log(`Saved data with key '${item.id}' to MongoDB`);
         }
     } catch (error) {
         console.error(`Failed to save data to MongoDB: ${error}`);
     }
 };
 const fetchDataFromAPI = async () => {
-    const response = await axios.get('https://botsms.net/api/his_autobank_limit?url_callBack=https://api.azview.us&limit=10');
+    const response = await axios.get('https://botsms.net/api/his_autobank_limit?url_callBack=https://api.azview.us/api/transaction&limit=10');
     const data = response.data;
     return data;
 };

@@ -16,7 +16,6 @@ const Payment = require('../modal/Payment.js');
 // const nodemailer = require ("nodemailer")
 
 
-let refreshTokens = [];
 
 const register = expressAsyncHandler(async (req, res, next) => {
     try {
@@ -173,7 +172,6 @@ const refreshTokenService = (token) => {
     })
 }
 
-
 const RefreshTokenController = expressAsyncHandler(async (req, res, next) => {
     try {
         const token = req.cookies.refresh_token
@@ -207,47 +205,6 @@ const Logout = expressAsyncHandler(async (req, res, next) => {
         next(error);
     }
 })
-// const forgotPassword = expressAsyncHandler(async (req, res, next) => {
-//     try {
-//         const { email } = req.body;
-//         const user = await User.findOne({ email });
-//         if (user) {
-//             const paswordNew = randomstring.generate(10);
-//             user.password = paswordNew;
-//             const updatedUser = await user.save();
-//             var transporter = nodemailer.createTransport({
-//                 service: 'gmail',
-//                 auth: {
-//                     user: 'nguyendinhtu11022002@gmail.com',
-//                     pass: 'dipotwokkbgjlryq'
-//                 }
-//             });
-
-//             var mailOptions = {
-//                 from: '1dg.com',
-//                 to: email,
-//                 subject: 'Password reset',
-//                 text: `New password: ${paswordNew}
-// You must change password at next signin
-//                 `
-//             };
-
-//             transporter.sendMail(mailOptions, function (error, info) {
-//                 if (error) {
-//                     console.log(error);
-//                 } else {
-//                     console.log('Email sent: ' + info.response);
-//                 }
-//             });
-//             res.json({ message: "Check your email inbox to get new password." })
-//         }
-//         else {
-//             res.json({ message: "User not exists" })
-//         }
-//     } catch (error) {
-//         next(error);
-//     }
-// })
 const getUserById = expressAsyncHandler(async (req, res, next) => {
     try {
 
@@ -383,113 +340,18 @@ const orderUrl = expressAsyncHandler(async (req, res, next) => {
         return res.status(401).json({ error: 'User not found' })
     }
 })
-// const updateMoney = expressAsyncHandler(async (req, res, next) => {
-//     try {
+const getAllUser = expressAsyncHandler(async (req, res, next) => {
+    try {
+        const userCheck = await User.find({})
+        if (userCheck) {
+            return res.json(userCheck)
+        }
+        else {
+            return res.status(400).json({ message: "USer not admin" })
+        }
+    } catch (error) {
+        next(error)
+    }
+})
 
-//         const user = await User.findById(req.user._id);
-//         const { money } = req.body;
-//         if (user) {
-//             if (money) {
-//                 user.money = money;
-//             }
-//             const updatedUser = await user.save();
-//             res.json({
-//                 _id: updatedUser._id,
-//                 token: generateToken(updatedUser._id),
-//             });
-
-//         } else {
-//             res.status(404);
-//             throw new Error("User not found");
-//         }
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-
-// const getAllUsers = expressAsyncHandler(async (req, res) => {
-//     try {
-
-//         const users = await User.find({});
-//         res.json(users);
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-
-// const deleteUserById = expressAsyncHandler(async (req, res, next) => {
-//     try {
-//         res.setHeader('Access-Control-Allow-Origin', '*');
-
-//         const user = await User.findById(req.params._id);
-//         if (user) {
-//             await user.remove();
-//             return res.json({ success: true })
-//         }
-//         else return res.json({ success: false })
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-
-// const updateUser = expressAsyncHandler(async (req, res) => {
-//     const { money, isAdmin } = req.body;
-
-//     const user = await User.findById(req.user._id);
-//     if (user) {
-//         user.name = user.name;
-//         user.email = user.email;
-//         const updatedUser = await user.save();
-//         res.json(updatedUser);
-//     } else {
-//         res.status(404);
-//         throw new Error("User not found");
-//     }
-// })
-// const LoginAdmin = expressAsyncHandler(async (req, res, next) => {
-//     try {
-//         const { email, password } = req.body;
-
-//         const user = await User.findOne({ email });
-//         console.log(user);
-//         if (user && (await user.matchPassword(password))) {
-//             res.json({
-//                 _id: user._id,
-//                 isAdmin: user.isAdmin,
-//                 token: generateToken(user._id),
-//                 createdAt: user.createdAt,
-//             });
-//         } else {
-//             res.status(401).json({ error: 'Invalid Email or Password' })
-//         }
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-// const getApiKey = expressAsyncHandler(async (req, res, next) => {
-//     try {
-//         const user = await User.findById(req.params._id);
-//         if (user) {
-//             return res.json({ apiKey: user.apiKey })
-//         }
-//         else {
-//             return res.status(404).json({ error: 'Not Found' });
-//         }
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-// const ChangeApiKey = expressAsyncHandler(async (req, res, next) => {
-//     try {
-//         const { apiKey } = req.body;
-//         const user = await User.findById(req.params._id);
-//         if (user) {
-//             user.apiKey = apiKey;
-//             const updatedKey = await user.save();
-//             res.json({ apiKey: updatedKey.apiKey })
-//         }
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-module.exports = { register, Login, RefreshTokenController, Logout, getUserById, updateProfile, updatePassword, orderUrl } 
+module.exports = { register, Login, RefreshTokenController, Logout, getUserById, updateProfile, updatePassword, orderUrl, getAllUser } 

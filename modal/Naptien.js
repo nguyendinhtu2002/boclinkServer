@@ -31,6 +31,10 @@ const naptienSchema = mongoose.Schema({
         type: Date,
         require: true,
     },
+    status:{
+        type:Boolean,
+        default:false,
+    }
 },
     {
         timestamps: true,
