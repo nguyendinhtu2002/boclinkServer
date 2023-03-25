@@ -33,6 +33,7 @@ const saveDataToMongoDB = async (data) => {
             if (existingDocument) {
                 continue;
             }        //   // Nếu chưa tồn tại, tạo một instance của model và lưu vào MongoDB
+
             const newData = new NapTien(item);
             await newData.save();
         }
@@ -41,7 +42,7 @@ const saveDataToMongoDB = async (data) => {
     }
 };
 const fetchDataFromAPI = async () => {
-    const response = await axios.get('https://botsms.net/api/his_autobank_limit?url_callBack=https://api.azview.us/api/transaction&limit=10');
+    const response = await axios.get('https://botsms.net/api/his_autobank_limit?url_callBack=https://api.azview.us/api/v1/payment&limit=10');
     const data = response.data;
     return data;
 };
@@ -99,22 +100,8 @@ app.get('/', function (req, res) {
 app.use('/api/v1/users', UserRouter)
 app.use('/api/v1/shorten', UrlRouter)
 app.use('/api/v1/payment', PaymentRouter)
-app.post('/api/transaction', (req, res) => {
-    const { so_tien, ten_bank, id_khach, ma_baoMat } = req.body;
 
-    if (!so_tien || !id_khach) {
-        return res.status(400).send('Thiếu thông tin cần thiết');
-    }
-
-    if (ma_baoMat !== '3483898374') {
-        return res.status(401).send('Sai mã bảo mật');
-    }
-
-    // Thực hiện các tác vụ tiếp theo
-
-    // res.send('Yêu cầu của bạn đã được xử lý thành công');
-});
-cron.schedule('*/30 * * * * *', task);
+// cron.schedule('*/15 * * * * *', task);
 
 app.use('/api/v1/browser', BrowserRouter)
 app.listen(process.env.PORT, () => {
