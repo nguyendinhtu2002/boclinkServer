@@ -16,41 +16,31 @@ const paymentCreate = expressAsyncHandler(async (req, res, next) => {
         }
         // const napTiepCheck = await NapTien.findOne({ id_khach, status: false })
         const userCheck = await User.findOne({ username: id_khach });
-        console.log(userCheck)
-        // if (userCheck) {
-        //     if (napTiepCheck && napTiepCheck.status === false) {
-        //         const moneyCu = userCheck.money
-        //         userCheck.money = userCheck.money + napTiepCheck.money;
-        //         const updatedUser = await userCheck.save();
-        //         const payment = await Payment.create({
-        //             money: updatedUser.money,
-        //             moneyCu,
-        //             moneyTD: napTiepCheck.money,
-        //             content: napTiepCheck.moi_dung,
-        //             user: userCheck._id
-        //         })
+        if (userCheck) {
+            const moneyCu = userCheck.money
+            userCheck.money = userCheck.money + so_tien;
+            const updatedUser = await userCheck.save();
+            const payment = await Payment.create({
+                money: updatedUser.money,
+                moneyCu,
+                moneyTD: so_tien,
+                content: moi_dung,
+                user: userCheck._id
+            })
+            if (payment) {
+                res.status(201).json({
+                    code: 1,
+                    data: payment,
+                });
+            }
+            else {
+                res.status(400).json({ message: "Có lỗi gì đó" })
 
-        //         napTiepCheck.status = true
-        //         const updateNapTien = await napTiepCheck.save();
-
-        //         if (payment) {
-        //             res.status(201).json({
-        //                 code: 1,
-        //                 data: payment,
-        //             });
-        //         }
-        //         else {
-        //             res.status(400).json({ message: "Có lỗi gì đó" })
-
-        //         }
-        //     }
-        //     else {
-        //         res.status(400).json({ message: "Chưa chuyển tiền" })
-        //     }
-        // }
-        // else {
-        //     res.status(400).json({ message: "User not found" })
-        // }
+            }
+        }
+        else {
+            res.status(400).json({ message: "User not found" })
+        }
     } catch (error) {
         next(error);
     }

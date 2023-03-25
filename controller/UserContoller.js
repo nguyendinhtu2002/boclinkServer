@@ -158,7 +158,7 @@ const refreshTokenService = (token) => {
                     })
                 }
                 const access_token = await generateToken({
-                    id: user?.id,
+                    id: user.id,
                 })
                 resolve({
                     status: 'OK',
