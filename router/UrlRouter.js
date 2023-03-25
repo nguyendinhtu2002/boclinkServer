@@ -32,5 +32,5 @@ router.get('/getURLGoc/:shortURL', getURLGoc)
 router.delete('/:id/linkfake', deleteUrlFake)
 router.get('/:id/getByIdFake', getUrlfakeById)
 router.put('/:id/Fake', updateUrlFake)
-router.get('/getALl',admin,protect,getAllUser)
+router.get('/getAll/Admin',protect,admin,getAllUser)
 module.exports = router
