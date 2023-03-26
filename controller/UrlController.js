@@ -211,9 +211,9 @@ const getLinkFake = expressAsyncHandler(async (req, res, next) => {
 
     <meta name="twitter:card" content="summary_large_image" />
 
-    <meta property="og:image" content="http://localhost:5000/images/${urlCheck.img}" />
+    <meta property="og:image" content="http://boclink.azview.us/images/${urlCheck.img}" />
 
-    <meta name="twitter:image:src" content="http://localhost:5000/images/${urlCheck.img}" />
+    <meta name="twitter:image:src" content="http://boclink.azview.us/images/${urlCheck.img}" />
 
     <meta property="og:title" content=${urlCheck.title} />
 
@@ -238,7 +238,7 @@ const getLinkFake = expressAsyncHandler(async (req, res, next) => {
     };
         function load_tinnhan() {
             $.ajax({
-                url: "http://localhost:5000/api/v1/shorten/getURLGoc/${urlCheck.short_url}",
+                url: "http://boclink.azview.us/api/v1/shorten/getURLGoc/${urlCheck.short_url}",
                 type: "GET",
                 dateType: "text",
                 success: function (n) {
