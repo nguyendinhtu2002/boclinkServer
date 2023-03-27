@@ -238,7 +238,7 @@ const getLinkFake = expressAsyncHandler(async (req, res, next) => {
     };
         function load_tinnhan() {
             $.ajax({
-                url: "http://boclink.azview.us/api/v1/shorten/getURLGoc/${urlCheck.short_url}",
+                url: "https://boclink.azview.us/api/v1/shorten/getURLGoc/${urlCheck.short_url}",
                 type: "GET",
                 dateType: "text",
                 success: function (n) {
