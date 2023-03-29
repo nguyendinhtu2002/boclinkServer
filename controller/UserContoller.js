@@ -133,7 +133,7 @@ const Login = expressAsyncHandler(async (req, res, next) => {
                 httpOnly: true,
                 secure: false,
                 sameSite: 'strict',
-                path: '/'
+                domain: 'makemoneymmo.com'
             })
             return res.status(200).json(newReponse)
 
