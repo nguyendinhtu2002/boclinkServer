@@ -132,8 +132,8 @@ const Login = expressAsyncHandler(async (req, res, next) => {
             res.cookie('refresh_token', refresh_token, {
                 maxAge: 60 * 60 * 24,
                 secure: true,
-                sameSite: 'strict',
-                domain:'makemoneymmo.com'
+                sameSite: 'none',
+                // domain:'makemoneymmo.com'
             })
             return res.status(200).json(newReponse)
 
