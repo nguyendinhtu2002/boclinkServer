@@ -28,8 +28,7 @@ app.use(useragent.express());
 //     origin: 'http://localhost:3000',
 //     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
-app.use(cors());
-
+app.use(cors({ credentials: true }));
 app.get('/test/libary.js', (req, res) => {
     res.sendFile(path.resolve('libary.js'));
 })
